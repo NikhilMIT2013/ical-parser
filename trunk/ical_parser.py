@@ -69,6 +69,7 @@ __version__ = 'V-0.1'
 
 #Icalendar standard variables
 calname = "X-WR-CALNAME"
+caltz   = "X-WR-TIMEZONE"
 version = "VERSION"
 calendar_start = "BEGIN:VCALENDAR"
 calendar_end = "END:VCALENDAR"
@@ -112,6 +113,8 @@ class IcalParser():
                     vcal.version = line.split(":")[1]
                 if line.startswith(calname):
                     vcal.calname = line.split(":")[1]
+                if line.startswith(caltz):
+                    vcal.caltz = line.split(":")[1]
                 #for vevents
                 if line.startswith(vevent_start):
                     event = VEvent()
@@ -164,7 +167,7 @@ class VCalendar():
         self.vtodos = []
         self.version = ''
         self.calname = ''
-    
+        self.caltz = ''
     def add_vevent(self,vevent):
         """Takes an VEvent object.""" 
         if type(vevent) == type(VEvent()): #doesn't work like i thought it did. I.E will let other classes through
